@@ -1,0 +1,18 @@
+.program triac_pulse
+
+    pull block
+    mov x, osr
+
+wait_loop:
+    jmp x-- wait_loop
+
+    set pins, 1
+
+    set y, 25
+p1:
+    set x, 8
+p2:
+    jmp x-- p2
+    jmp y-- p1
+
+    set pins, 0
