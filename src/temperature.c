@@ -53,6 +53,14 @@ static inline void triac_fire_us(uint32_t atraso)
     pio_sm_put_blocking(pio, sm, atraso);
 }
 
+// ===== Gera pulso no MOC (chamado pelo alarme) =====
+int64_t alarm_callback(alarm_id_t id, void *user_data) {
+    gpio_put(TRIAC_PIN, 1);
+    busy_wait_us_32(200);      // espera não bloqueante do core
+    gpio_put(TRIAC_PIN, 0);
+    return 0;
+}
+
 // ===== Interrupção do zero-cross =====
 void zero_cross_callback(uint gpio, uint32_t events) {
     uint32_t p = potencia;
@@ -63,7 +71,8 @@ void zero_cross_callback(uint gpio, uint32_t events) {
     if (atraso < 250) atraso = 250;
     if (atraso > 8000) return;
 
-    triac_fire_us(atraso);
+    //triac_fire_us(atraso);
+    add_alarm_in_us(atraso, alarm_callback, NULL, true);
 }
 
 static void init_pio_triac(uint pin)
@@ -87,15 +96,15 @@ static void init_pio_triac(uint pin)
 }
 
 void init_resistance_control(){
-    init_pio_triac(TRIAC_PIN);
+    //init_pio_triac(TRIAC_PIN);
 
     gpio_init(ZERO_PHASE_DETECT_PIN);
     gpio_set_dir(ZERO_PHASE_DETECT_PIN, GPIO_IN);
     //gpio_pull_up(ZERO_PHASE_DETECT_PIN);
 
-    //gpio_init(TRIAC_PIN);
-    //gpio_set_dir(TRIAC_PIN, GPIO_OUT);
-    //gpio_put(TRIAC_PIN, 0);
+    gpio_init(TRIAC_PIN);
+    gpio_set_dir(TRIAC_PIN, GPIO_OUT);
+    gpio_put(TRIAC_PIN, 0);
 
     gpio_set_irq_enabled_with_callback(
         ZERO_PHASE_DETECT_PIN,

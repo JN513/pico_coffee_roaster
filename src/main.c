@@ -17,13 +17,13 @@ int main () {
 
     init_motor();
 
+    set_resistance_power(20);
+
     init_resistance_control();
 
     printf("Sistema iniciado");
 
     set_motor_power(100);
-
-    set_resistance_power(50);
 
     while (true)
     {
