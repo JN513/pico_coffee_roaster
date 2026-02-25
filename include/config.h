@@ -14,5 +14,6 @@
 #define NOMINAL_TEMP          25.0f
 #define BETA                  3950.0f
 
+#define ALPHA                 0.2 // Fator de suavização do filtro irr da temperatura
 
 #endif // !__CONFIG_H__

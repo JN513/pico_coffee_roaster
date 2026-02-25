@@ -9,7 +9,7 @@
 #include "hardware/clocks.h" 
 #include "triac.pio.h"
 
-volatile int potencia = 50;
+volatile int current_power = 50;
 static PIO pio = pio0;
 static uint sm;
 
@@ -47,6 +47,13 @@ float read_tempB(){
     return adc_to_temp(adc_read());
 }
 
+float filter(float new_value, float *state){
+    if(!isfinite(new_value))
+        return *state;
+
+    *state = ALPHA * new_value + (1 - ALPHA) * (*state);
+    return *state;
+}
 
 static inline void triac_fire_us(uint32_t atraso)
 {
@@ -63,7 +70,7 @@ int64_t alarm_callback(alarm_id_t id, void *user_data) {
 
 // ===== Interrupção do zero-cross =====
 void zero_cross_callback(uint gpio, uint32_t events) {
-    uint32_t p = potencia;
+    uint32_t p = current_power;
 
     // 60 Hz → semiciclo = 8333 µs
     int atraso = (100 - p) * 83;
@@ -118,5 +125,5 @@ void set_resistance_power(int power){
     if (power < 0) power = 0;
     if (power > 100) power = 100;
 
-    potencia = power;
+    current_power = power;
 }

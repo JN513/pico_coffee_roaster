@@ -18,6 +18,7 @@ add_executable(pico_roster
     src/main.c
     src/temperature.c
     src/motor.c
+    src/control.c
     )
 
 pico_generate_pio_header(pico_roster

@@ -12,14 +12,23 @@ void init_thermistors();
  * 
  * @return float 
  */
-float read_tempA();
+float read_tempA(); // BT (massa)
 
 /**
  * @brief 
  * 
  * @return float 
  */
-float read_tempB();
+float read_tempB(); // ET (ar)
+
+/**
+ * @brief 
+ * 
+ * @param new_value 
+ * @param state 
+ * @return float 
+ */
+float filter(float new_value, float *state);
 
 /**
  * @brief 
