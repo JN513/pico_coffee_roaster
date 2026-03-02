@@ -19,6 +19,7 @@ add_executable(pico_roster
     src/temperature.c
     src/motor.c
     src/control.c
+    src/max31865.c
     )
 
 pico_generate_pio_header(pico_roster
@@ -32,6 +33,7 @@ target_link_libraries(pico_roster
     hardware_pwm
     hardware_pio
     hardware_clocks
+    hardware_spi
     FreeRTOS-Kernel
     FreeRTOS-Kernel-Heap4
 )

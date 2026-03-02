@@ -7,7 +7,8 @@
 
 
 uint slice_num;
-const uint16_t WRAP = 2500;   // ~5 kHz
+//const uint16_t WRAP = 2500;   // ~5 kHz
+const uint16_t WRAP = 12500;   // ~1 kHz
 
 void init_motor(){
     gpio_set_function(MOTOR_PIN, GPIO_FUNC_PWM);

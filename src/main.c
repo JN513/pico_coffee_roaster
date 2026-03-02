@@ -5,7 +5,9 @@
 #include "control.h"
 #include "temperature.h"
 #include "pico/stdlib.h"
+#include "max31865.h"
 
+max31865_t sensor;
 
 void roast_control_loop()
 {
@@ -83,11 +85,26 @@ int main () {
 
     init_thermistors();
 
+    max31865_init(
+        &sensor,
+        spi1,
+        MAX_PIN_SCK,
+        MAX_PIN_MOSI,
+        MAX_PIN_MISO,
+        MAX_PIN_CS,
+        MAX_PIN_RDY,
+        430.0f   // Rref em ohms (valor típico do breakout)
+    );
+
     init_motor();
 
-    set_resistance_power(50);
+    gpio_init(RELEY_PIN);
+    gpio_set_dir(RELEY_PIN, GPIO_OUT);
+    gpio_put(RELEY_PIN, 1);
 
-    init_resistance_control();
+    //set_resistance_power(50);
+
+    //init_resistance_control();
 
     printf("Sistema iniciado");
 
@@ -99,5 +116,16 @@ int main () {
 
     //roast_control_loop();
 
-    while(1);
+    while(1) {
+        float temp;
+        if (max31865_read_celsius(&sensor, &temp)) {
+            printf("Temperatura: %.2f °C\n", temp);
+        } else {
+            printf("Erro ao ler temperatura\n");
+        }
+
+        float therst = read_tempA();
+        printf("Thermistor A: %.2f °C\n", therst);
+        sleep_ms(1000);
+    }
 }
