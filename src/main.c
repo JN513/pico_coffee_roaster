@@ -98,18 +98,24 @@ int main () {
 
     init_motor();
 
+    set_motor_power(100);
+
+    printf("Motor ligado\n");
+
+    sleep_ms(10000);
+
     gpio_init(RELEY_PIN);
     gpio_set_dir(RELEY_PIN, GPIO_OUT);
     gpio_put(RELEY_PIN, 1);
 
-    //set_resistance_power(50);
+    printf("Iniciando resistência\n");
+
+    set_resistance_power(0);
 
     //init_resistance_control();
 
     printf("Sistema iniciado");
 
-    set_motor_power(70);
-    
     sleep_ms(2000);
 
     printf("Iniciando torra\n");

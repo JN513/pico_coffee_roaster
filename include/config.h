@@ -4,7 +4,7 @@
 // --- Configurações de Hardware ---
 #define ADC_PIN_A             26 // Termistor A (ET)
 #define ADC_PIN_B             27 // Termistor B (BT)
-#define MOTOR_PIN             22
+#define MOTOR_PIN             19
 #define ZERO_PHASE_DETECT_PIN 21
 #define TRIAC_PIN             20
 
@@ -23,7 +23,7 @@
 #define MAX_PIN_RDY           14
 
 #define RELEY_PIN             18
-#define FAN_PIN               19
+#define FAN_PIN               22
 
 
 #endif // !__CONFIG_H__
