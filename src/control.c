@@ -41,15 +41,15 @@ float pid_compute(PID *pid, float setpoint, float measured, float dt)
 
 float get_bt_target(int seconds)
 {
-    for (int i = 0; i < PROFILE_SIZE-1; i++) {
-        if (seconds >= profile[i].time &&
-            seconds < profile[i+1].time) {
+    for (int i = 0; i < PROFILE_SIZE3-1; i++) {
+        if (seconds >= profile3[i].time &&
+            seconds < profile3[i+1].time) {
 
-            float t1 = profile[i].time;
-            float t2 = profile[i+1].time;
+            float t1 = profile3[i].time;
+            float t2 = profile3[i+1].time;
 
-            float v1 = profile[i].bt;
-            float v2 = profile[i+1].bt;
+            float v1 = profile3[i].bt;
+            float v2 = profile3[i+1].bt;
 
             float ratio = (seconds - t1) / (t2 - t1);
 
@@ -57,7 +57,17 @@ float get_bt_target(int seconds)
         }
     }
 
-    return profile[PROFILE_SIZE-1].bt;
+    return profile3[PROFILE_SIZE3-1].bt;
+}
+
+int get_stage(int seconds) {
+    for (int i = 0; i < PROFILE_SIZE3-1; i++) {
+        if (seconds >= profile3[i].time &&
+            seconds < profile3[i+1].time) {
+            return i;
+        }
+    }
+    return PROFILE_SIZE3-1;
 }
 
 int fan_base_by_phase(int seconds)

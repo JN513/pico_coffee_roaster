@@ -4,9 +4,9 @@
 // --- Configurações de Hardware ---
 #define ADC_PIN_A             26 // Termistor A (ET)
 #define ADC_PIN_B             27 // Termistor B (BT)
-#define MOTOR_PIN             19
-#define ZERO_PHASE_DETECT_PIN 21
-#define TRIAC_PIN             20
+#define MOTOR_PIN             19 // 22
+#define ZERO_PHASE_DETECT_PIN 22 // 21
+#define TRIAC_PIN             21 // 20
 
 // --- Calibragem do Thermistor ---
 #define SERIES_RESISTOR       10000.0f  
@@ -22,8 +22,8 @@
 #define MAX_PIN_CS            9
 #define MAX_PIN_RDY           14
 
-#define RELEY_PIN             18
-#define FAN_PIN               22
+#define RELEY_PIN             20 // 18
+#define FAN_PIN               18
 
 
 #endif // !__CONFIG_H__

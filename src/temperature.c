@@ -9,7 +9,7 @@
 #include "hardware/clocks.h" 
 #include "triac.pio.h"
 
-volatile int current_power = 50;
+volatile int current_power = 0;
 static PIO pio = pio0;
 static uint sm;
 
@@ -103,6 +103,9 @@ static void init_pio_triac(uint pin)
 }
 
 void init_resistance_control(){
+    gpio_init(RELEY_PIN);
+    gpio_set_dir(RELEY_PIN, GPIO_OUT);
+    gpio_put(RELEY_PIN, 0);
     //init_pio_triac(TRIAC_PIN);
 
     gpio_init(ZERO_PHASE_DETECT_PIN);
@@ -122,6 +125,12 @@ void init_resistance_control(){
 }
 
 void set_resistance_power(int power){
+    if(power > 0) {
+        gpio_put(RELEY_PIN, 1);
+    } else {
+        gpio_put(RELEY_PIN, 0);
+    }
+
     if (power < 0) power = 0;
     if (power > 100) power = 100;
 
