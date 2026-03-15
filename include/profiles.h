@@ -35,6 +35,20 @@ static const ProfilePoint profile_light_slow[] = {
     {0,30},{100,150},{240,188},{360,202},{420,207}
 };
 
+static const ProfilePoint profile_light_extended_maillard[] = {
+    {0,   30},
+    {270, 150}, // Secagem padrão (4.5 min) [cite: 190]
+    {720, 195}, // Maillard muito longo (+7.5 min) [cite: 192, 198]
+    {840, 205} // 1º Crack e finalização rápida para não escurecer
+};
+
+static const ProfilePoint profile_light_long_slow_start[] = {
+    {0,   30},
+    {510, 150}, // Fase de Secagem estendida (8.5 min) [cite: 126]
+    {750, 190}, // Maillard gradual (+4 min) [cite: 128]
+    {870, 205} // Finalização logo após o 1º Crack para manter clara [cite: 585]
+};
+
 
 
 // =========================
@@ -122,6 +136,21 @@ static const RoastProfile profiles[] = {
         profile_light_slow,
         sizeof(profile_light_slow)/sizeof(ProfilePoint),
         420,
+        ROAST_LIGHT
+    },
+
+    {
+        "Light Extended Maillard",
+        profile_light_extended_maillard,
+        sizeof(profile_light_extended_maillard)/sizeof(ProfilePoint),
+        840,
+        ROAST_LIGHT
+    },
+    {
+        "Light long Slow Start",
+        profile_light_long_slow_start,
+        sizeof(profile_light_long_slow_start)/sizeof(ProfilePoint),
+        870,
         ROAST_LIGHT
     },
 
