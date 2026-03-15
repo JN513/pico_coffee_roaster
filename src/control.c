@@ -8,7 +8,7 @@
 #include "temperature.h"
 #include "max31865.h"
 #include "motor.h"
-
+#include "profiles.h"
 
 float integral = 0;
 float last_error = 0;
@@ -49,17 +49,18 @@ void control_temperature(int target, float temperature) {
 }
 
 
-float get_bt_target(int seconds)
+float get_bt_target(int seconds, ProfilePoint * profile_array, 
+    int profile_size)
 {
-    for (int i = 0; i < PROFILE_SIZE3-1; i++) {
-        if (seconds >= profile3[i].time &&
-            seconds < profile3[i+1].time) {
+    for (int i = 0; i < profile_size-1; i++) {
+        if (seconds >= profile_array[i].time &&
+            seconds < profile_array[i+1].time) {
 
-            float t1 = profile3[i].time;
-            float t2 = profile3[i+1].time;
+            float t1 = profile_array[i].time;
+            float t2 = profile_array[i+1].time;
 
-            float v1 = profile3[i].bt;
-            float v2 = profile3[i+1].bt;
+            float v1 = profile_array[i].bt;
+            float v2 = profile_array[i+1].bt;
 
             float ratio = (seconds - t1) / (t2 - t1);
 
@@ -67,17 +68,18 @@ float get_bt_target(int seconds)
         }
     }
 
-    return profile3[PROFILE_SIZE3-1].bt;
+    return profile_array[profile_size-1].bt;
 }
 
-int get_current_stage(int seconds) {
-    for (int i = 0; i < PROFILE_SIZE3-1; i++) {
-        if (seconds >= profile3[i].time &&
-            seconds < profile3[i+1].time) {
+int get_current_stage(int seconds, ProfilePoint * profile_array, 
+    int profile_size) {
+    for (int i = 0; i < profile_size-1; i++) {
+        if (seconds >= profile_array[i].time &&
+            seconds < profile_array[i+1].time) {
             return i;
         }
     }
-    return PROFILE_SIZE3-1;
+    return profile_size-1;
 }
 
 
@@ -88,18 +90,4 @@ void emergency_shutdown() {
     while(1) {
         sleep_ms(1000);
     }
-}
-
-void print_stage(int stage) {
-    switch(stage) {
-        case 0: printf("- Fase: Secagem\n"); break;
-        case 1: printf("- Fase: Maillard\n"); break;
-        case 2: printf("- Fase: Desenvolvimento\n"); break;
-        case 3: printf("- Fase: Finalização\n"); break;
-        case 4: printf("- Fase: Refrigeração\n"); break;
-    }
-}
-
-int get_finish_time() {
-    return profile3[PROFILE_SIZE3-1].time;
 }

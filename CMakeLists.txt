@@ -21,6 +21,8 @@ add_executable(pico_roster
     src/control.c
     src/max31865.c
     src/display.c
+    src/profiles.c
+    src/encoder.c
     lib/pico-ssd1306/ssd1306.c
     )
 

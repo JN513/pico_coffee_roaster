@@ -24,20 +24,40 @@ void init_display() {
     ssd1306_show(&disp);
 }
 
-void update_display(float tempA, float tempB, int stage) {
+
+void update_display(float tempA, float tempB, int stage, char * profile_name) {
     ssd1306_clear(&disp);
 
     char line1[20];
     char line2[20];
     char line3[20];
+    char line4[20];
+    char line5[20];
+    char line6[20];
 
-    snprintf(line1, sizeof(line1), "Temp Massa: %.2f C", tempA);
-    snprintf(line2, sizeof(line2), "Temp Ar: %.2f C", tempB);
-    snprintf(line3, sizeof(line3), "Stage: %d", stage);
+    snprintf(line1, sizeof(line1), "Realizando torra ");
+    snprintf(line2, sizeof(line2), "com perfil:");
+    snprintf(line3, sizeof(line3), "%s", profile_name);
+    snprintf(line4, sizeof(line4), "Temp Massa: %.2f C", tempA);
+    snprintf(line5, sizeof(line5), "Temp Ar: %.2f C", tempB);
 
-    ssd1306_draw_string(&disp, 0, 0, 1, line1);
+
+    switch (stage) {
+        case 0: snprintf(line6, sizeof(line6), "Fase: Secagem"); break;
+        case 1: snprintf(line6, sizeof(line6), "Fase: Maillard"); break;
+        case 2: snprintf(line6, sizeof(line6), "Fase: Desenvolvimen"); break;
+        case 3: snprintf(line6, sizeof(line6), "Fase: Finalizacao"); break;
+        case 4: snprintf(line6, sizeof(line6), "Fase: Refrigeracao"); break;
+        case 5: snprintf(line6, sizeof(line6), "Fase: Pre aqueci..."); break;
+        case 6: snprintf(line6, sizeof(line6), "Emergencia!!!"); break;
+    }
+
+    ssd1306_draw_string(&disp, 0, 00, 1, line1);
     ssd1306_draw_string(&disp, 0, 10, 1, line2);
     ssd1306_draw_string(&disp, 0, 20, 1, line3);
+    ssd1306_draw_string(&disp, 0, 30, 1, line4);
+    ssd1306_draw_string(&disp, 0, 40, 1, line5);
+    ssd1306_draw_string(&disp, 0, 50, 1, line6);
 
     ssd1306_show(&disp);
 }
