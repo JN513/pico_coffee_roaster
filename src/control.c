@@ -5,37 +5,47 @@
 #include "pico/stdlib.h"
 #include "hardware/timer.h"
 #include "control.h"
+#include "temperature.h"
+#include "max31865.h"
+#include "motor.h"
 
 
-float pid_compute(PID *pid, float setpoint, float measured, float dt)
-{
-    float error = setpoint - measured;
+float integral = 0;
+float last_error = 0;
 
-    // Proporcional
-    float P = pid->kp * error;
+void control_temperature(int target, float temperature) {
+    float error = target - temperature;
 
-    // Integral
-    pid->integral += error * dt;
-    float I = pid->ki * pid->integral;
+    integral += error;
 
-    // Derivativo
-    float D = pid->kd * (error - pid->last_error) / dt;
+    if (integral > 800) integral = 800;
+    if (integral < -800) integral = -800;
 
-    float output = P + I + D;
+    float derivative = error - last_error;
+    last_error = error;
 
-    // Anti windup
-    if (output > pid->out_max) {
-        output = pid->out_max;
-        pid->integral -= error * dt;
-    }
-    if (output < pid->out_min) {
-        output = pid->out_min;
-        pid->integral -= error * dt;
-    }
 
-    pid->last_error = error;
+    float pid_resistance = KP * error + KI * integral + KD * derivative;
 
-    return output;
+    int base_power;
+
+    if (temperature < 120)
+        base_power = 40;
+    else if (temperature < 150)
+        base_power = 50;
+    else
+        base_power = 60;
+
+    int resistance;
+    
+    resistance = base_power + pid_resistance;
+    
+    if (resistance > 100) resistance = 100;
+    
+    if (resistance < 0) resistance = 0;
+
+
+    set_resistance_power(resistance);
 }
 
 
@@ -60,7 +70,7 @@ float get_bt_target(int seconds)
     return profile3[PROFILE_SIZE3-1].bt;
 }
 
-int get_stage(int seconds) {
+int get_current_stage(int seconds) {
     for (int i = 0; i < PROFILE_SIZE3-1; i++) {
         if (seconds >= profile3[i].time &&
             seconds < profile3[i+1].time) {
@@ -70,11 +80,26 @@ int get_stage(int seconds) {
     return PROFILE_SIZE3-1;
 }
 
-int fan_base_by_phase(int seconds)
-{
-    if (seconds < 120)   return 45; // secagem
-    if (seconds < 300)   return 60; // maillard
-    return 75;                  // desenvolvimento
+
+void emergency_shutdown() {
+    set_resistance_power(0);
+    set_motor_power(100);
+    printf("EMERGENCY SHUTDOWN ACTIVATED!\n");
+    while(1) {
+        sleep_ms(1000);
+    }
 }
 
+void print_stage(int stage) {
+    switch(stage) {
+        case 0: printf("- Fase: Secagem\n"); break;
+        case 1: printf("- Fase: Maillard\n"); break;
+        case 2: printf("- Fase: Desenvolvimento\n"); break;
+        case 3: printf("- Fase: Finalização\n"); break;
+        case 4: printf("- Fase: Refrigeração\n"); break;
+    }
+}
 
+int get_finish_time() {
+    return profile3[PROFILE_SIZE3-1].time;
+}

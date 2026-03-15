@@ -20,11 +20,10 @@ add_executable(pico_roster
     src/motor.c
     src/control.c
     src/max31865.c
+    src/display.c
+    lib/pico-ssd1306/ssd1306.c
     )
 
-pico_generate_pio_header(pico_roster
-    ${CMAKE_CURRENT_LIST_DIR}/src/triac.pio
-)
 
 # pull in common dependencies
 target_link_libraries(pico_roster
@@ -34,6 +33,7 @@ target_link_libraries(pico_roster
     hardware_pio
     hardware_clocks
     hardware_spi
+    hardware_i2c
     FreeRTOS-Kernel
     FreeRTOS-Kernel-Heap4
 )
@@ -42,6 +42,7 @@ target_link_libraries(pico_roster
 target_include_directories(pico_roster PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src/include
     ${CMAKE_CURRENT_LIST_DIR}/lib
+    ${CMAKE_CURRENT_LIST_DIR}/lib/pico-ssd1306
     ${CMAKE_CURRENT_LIST_DIR}/include
     ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS-Kernel/include
     ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2040/include

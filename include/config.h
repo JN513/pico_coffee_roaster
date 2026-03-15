@@ -25,5 +25,25 @@
 #define RELEY_PIN             20 // 18
 #define FAN_PIN               18
 
+#define BTN1_PIN              3
+#define BTN2_PIN              6
+
+#define ENCODER_BTN_PIN       2
+#define ENCODER_DT_PIN        4
+#define ENCODER_CLK_PIN       5
+
+#define OLED_SDA_PIN          0
+#define OLED_SCL_PIN          1
+
+#define PRE_HEAT_DURATION     60 // Duração do pré-aquecimento em segundos
+#define PRE_HEAT_TEMP         150 // Temperatura alvo para o pré-aquecimento
+
+#define CONTROL_INTERVAL_MS   200 // Intervalo de controle em milissegundos
+
+#define MAX_TEMP              250 // Temperatura máxima de segurança
+
+#define KP 3.5
+#define KI 0.02
+#define KD 2.0
 
 #endif // !__CONFIG_H__

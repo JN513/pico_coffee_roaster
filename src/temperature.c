@@ -7,11 +7,8 @@
 #include "hardware/adc.h"
 #include "hardware/timer.h"
 #include "hardware/clocks.h" 
-#include "triac.pio.h"
 
 volatile int current_power = 0;
-static PIO pio = pio0;
-static uint sm;
 
 // Temperature Read
 float adc_to_temp(uint16_t adc_val) {
@@ -55,11 +52,6 @@ float filter(float new_value, float *state){
     return *state;
 }
 
-static inline void triac_fire_us(uint32_t atraso)
-{
-    pio_sm_put_blocking(pio, sm, atraso);
-}
-
 // ===== Gera pulso no MOC (chamado pelo alarme) =====
 int64_t alarm_callback(alarm_id_t id, void *user_data) {
     gpio_put(TRIAC_PIN, 1);
@@ -78,39 +70,17 @@ void zero_cross_callback(uint gpio, uint32_t events) {
     if (atraso < 250) atraso = 250;
     if (atraso > 8000) return;
 
-    //triac_fire_us(atraso);
     add_alarm_in_us(atraso, alarm_callback, NULL, true);
 }
 
-static void init_pio_triac(uint pin)
-{
-    uint offset = pio_add_program(pio, &triac_pulse_program);
-
-    sm = pio_claim_unused_sm(pio, true);
-
-    pio_sm_config c = triac_pulse_program_get_default_config(offset);
-
-    sm_config_set_set_pins(&c, pin, 1);
-    pio_gpio_init(pio, pin);
-    gpio_set_dir(pin, GPIO_OUT);
-
-    // 1 MHz → 1 ciclo = 1 µs
-    float div = clock_get_hz(clk_sys) / 1000000.0f;
-    sm_config_set_clkdiv(&c, div);
-
-    pio_sm_init(pio, sm, offset, &c);
-    pio_sm_set_enabled(pio, sm, true);
-}
 
 void init_resistance_control(){
     gpio_init(RELEY_PIN);
     gpio_set_dir(RELEY_PIN, GPIO_OUT);
     gpio_put(RELEY_PIN, 0);
-    //init_pio_triac(TRIAC_PIN);
 
     gpio_init(ZERO_PHASE_DETECT_PIN);
     gpio_set_dir(ZERO_PHASE_DETECT_PIN, GPIO_IN);
-    //gpio_pull_up(ZERO_PHASE_DETECT_PIN);
 
     gpio_init(TRIAC_PIN);
     gpio_set_dir(TRIAC_PIN, GPIO_OUT);

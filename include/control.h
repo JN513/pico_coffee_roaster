@@ -1,17 +1,6 @@
 #ifndef __CONTROL_H__
 #define __CONTROL_H__
 
-typedef struct {
-    float kp;
-    float ki;
-    float kd;
-
-    float integral;
-    float last_error;
-
-    float out_min;
-    float out_max;
-} PID;
 
 typedef struct {
     int time;      // segundos
@@ -24,7 +13,6 @@ static ProfilePoint profile[] = {
     {300, 190}, // segunda fase: maillard - 3 min
     {420, 205}, // terceira fase: desenvolvimento - 2 min
     {540, 210},  // quarta fase: finalização - 2 min
-    {720, 0}  // quinta fase: refrigeração - 3 min
 };
 
 static ProfilePoint profile2[] = { // torra média curta
@@ -32,8 +20,7 @@ static ProfilePoint profile2[] = { // torra média curta
     {180, 150}, // primeira fase: secagem - 3 min
     {420, 190}, // segunda fase: maillard - 4 min
     {600, 205}, // terceira fase: desenvolvimento - 3 min
-    {720, 210},  // quarta fase: finalização - 2 min
-    {900, 0}  // quinta fase: refrigeração - 3 min
+    {720, 210}, // quarta fase: finalização - 2 min
 };
 
 static ProfilePoint profile3[] = { // torra media longa
@@ -42,7 +29,6 @@ static ProfilePoint profile3[] = { // torra media longa
     {420, 195}, // Maillard (mais energia para preparar o crack)
     {600, 215}, // Desenvolvimento (pós Primeiro Crack)
     {780, 222}, // Finalização: Alvo de torra média
-    {960, 0}    // Resfriamento
 };
 
 #define PROFILE_SIZE (sizeof(profile)/sizeof(ProfilePoint))
@@ -52,13 +38,10 @@ static ProfilePoint profile3[] = { // torra media longa
 /**
  * @brief 
  * 
- * @param pid 
- * @param setpoint 
- * @param measured 
- * @param dt 
- * @return float 
+ * @param target 
+ * @param temperature 
  */
-float pid_compute(PID *pid, float setpoint, float measured, float dt);
+void control_temperature(int target, float temperature);
 
 
 /**
@@ -69,15 +52,32 @@ float pid_compute(PID *pid, float setpoint, float measured, float dt);
  */
 float get_bt_target(int seconds);
 
-int get_stage(int seconds);
-
-
 /**
- * @brief 
+ * @brief Get the current stage object
  * 
  * @param seconds 
  * @return int 
  */
-int fan_base_by_phase(int seconds);
+int get_current_stage(int seconds);
+
+/**
+ * @brief 
+ * 
+ */
+void emergency_shutdown();
+
+/**
+ * @brief 
+ * 
+ * @param stage 
+ */
+void print_stage(int stage);
+
+/**
+ * @brief Get the finish time object
+ * 
+ * @return int 
+ */
+int get_finish_time();
 
 #endif // !__CONTROL_H__
