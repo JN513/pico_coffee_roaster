@@ -59,7 +59,7 @@ void cooldown() {
     set_motor_power(100);
     set_resistance_power(0);
 
-    while (temp > 40) {
+    while (temp > COOLDOWN_MIN_TEMP) {
         max31865_read_celsius(&sensor, &temp);
         ar_temp = read_tempA();
         printf("Temp: %.2f °C - Resfriando...\n", temp);
@@ -227,6 +227,7 @@ int main () {
     while (1) {
         if (gpio_get(BTN1_PIN) == 0) {
             roast_loop(1);
+            set_motor_power(0);
         }
         if (gpio_get(BTN2_PIN) == 0) {
             update_display(temp, ar_temp, 6, "Emergencia");

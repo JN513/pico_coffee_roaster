@@ -61,3 +61,4 @@ void update_display(float tempA, float tempB, int stage, char * profile_name) {
 
     ssd1306_show(&disp);
 }
+

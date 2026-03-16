@@ -42,6 +42,8 @@
 
 #define MAX_TEMP              250 // Temperatura máxima de segurança
 
+#define COOLDOWN_MIN_TEMP     35
+
 #define KP 3.5
 #define KI 0.02
 #define KD 2.0
