@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 typedef enum {
+    SYS_START,
     SYS_IDLE,
     SYS_MENU,
     SYS_PREHEAT,
@@ -14,14 +15,20 @@ typedef enum {
 
 typedef struct {
 
-    float bt;
-    float et;
+    float bt; // Bean temperature (Grão)
+    float et; // Environment temperature (Ar - ambiente)
 
-    int target;
+    int target; // Temperatura alvo do PID
 
-    int profile_id;
+    int profile_id; // Profile atual -1 vazio
 
-    int seconds;
+    int seconds; // Tempo na torra
+
+    int stop_flag;
+
+    int roast_stage;
+
+    char * profile_name;
 
     system_mode_t mode;
 

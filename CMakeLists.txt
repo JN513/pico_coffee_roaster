@@ -23,6 +23,9 @@ add_executable(pico_roster
     src/display.c
     src/profiles.c
     src/encoder.c
+    src/system_state.c
+    src/system_rotines.c
+    src/roaster_rotines.c
     lib/pico-ssd1306/ssd1306.c
     )
 

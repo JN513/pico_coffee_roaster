@@ -9,6 +9,7 @@
 #include "max31865.h"
 #include "motor.h"
 #include "profiles.h"
+#include "system_state.h"
 
 float integral = 0;
 float last_error = 0;
@@ -84,9 +85,10 @@ int get_current_stage(int seconds, ProfilePoint * profile_array,
 
 
 void emergency_shutdown() {
+    g_state.mode = SYS_EMERGENCY;
     set_resistance_power(0);
     set_motor_power(100);
-    printf("EMERGENCY SHUTDOWN ACTIVATED!\n");
+    //printf("EMERGENCY SHUTDOWN ACTIVATED!\n");
     while(1) {
         sleep_ms(1000);
     }

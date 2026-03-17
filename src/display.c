@@ -25,7 +25,7 @@ void init_display() {
 }
 
 
-void update_display(float tempA, float tempB, int stage, char * profile_name) {
+void update_display_info(float tempA, float tempB, int stage, char * profile_name) {
     ssd1306_clear(&disp);
 
     char line1[20];
@@ -62,3 +62,11 @@ void update_display(float tempA, float tempB, int stage, char * profile_name) {
     ssd1306_show(&disp);
 }
 
+void print_info(char *line1, char *line2){
+    ssd1306_clear(&disp);
+    ssd1306_draw_string(&disp, 0, 0, 1, "Pico Roaster!");
+    ssd1306_draw_string(&disp, 0, 10, 1, line1);
+    ssd1306_draw_string(&disp, 0, 20, 1, line2);
+
+    ssd1306_show(&disp);
+}

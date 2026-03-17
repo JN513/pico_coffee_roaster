@@ -55,8 +55,7 @@ void encoder_isr(uint gpio, uint32_t events)
 }
 
 
-void encoder_init()
-{
+void encoder_init() {
 
     gpio_init(ENC_A);
     gpio_set_dir(ENC_A, GPIO_IN);
@@ -65,6 +64,11 @@ void encoder_init()
     gpio_init(ENC_B);
     gpio_set_dir(ENC_B, GPIO_IN);
     gpio_pull_up(ENC_B);
+
+    gpio_init(ENCODER_BTN_PIN);
+    gpio_set_dir(ENCODER_BTN_PIN, GPIO_IN);
+
+    prev_state = (gpio_get(ENC_B) << 1) | gpio_get(ENC_A);
 
     gpio_set_irq_enabled_with_callback(
         ENC_A,
