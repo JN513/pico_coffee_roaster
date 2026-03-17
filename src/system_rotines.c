@@ -7,6 +7,7 @@
 #include "system_state.h"
 #include "encoder.h"
 #include "control.h"
+#include "fc_detector.h"
 
 // Free RTOS
 #include "FreeRTOS.h"
@@ -161,4 +162,26 @@ void TaskUi(void *p) {
 
         vTaskDelay(100);
     }
+}
+
+void TaskFC(void *p) {
+    fc_fft_init();
+
+    while (1) {
+
+        sample_audio();
+
+        run_fft();
+
+        float e = crack_energy();
+
+        if (detect_fc(e))
+        {
+            printf("FIRST CRACK\n");
+        }
+
+        vTaskDelay(10);
+
+    }
+
 }

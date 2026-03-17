@@ -59,4 +59,7 @@
 #define KI                    0.02
 #define KD                    2.0
 
+#define FFT_SIZE              256
+#define MICROPHONE_PIN        28
+
 #endif // !__CONFIG_H__

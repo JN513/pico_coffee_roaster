@@ -29,6 +29,7 @@ int main () {
     xTaskCreate(TaskDisplay_Control, "display", DISPLAY_STACK_SIZE, NULL, DISPLAY_TASK_PRIORITY, NULL);
     xTaskCreate(TaskArtisan_uart, "artisan", ARTISAN_STACK_SIZE, NULL, ARTISAN_TASK_PRIORITY, NULL);
     xTaskCreate(TaskUi, "ui_control", UI_TASK_STACK_SIZE, NULL, UI_TASK_PRIORITY, NULL);
+    //xTaskCreate(TaskFC, "fc", 2048, NULL, 1, NULL);
     vTaskStartScheduler();
 
     // se chegar aqui, erro

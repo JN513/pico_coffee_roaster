@@ -26,7 +26,10 @@ add_executable(pico_roster
     src/system_state.c
     src/system_rotines.c
     src/roaster_rotines.c
+    src/fc_detector.c
     lib/pico-ssd1306/ssd1306.c
+    lib/kissfft/kiss_fft.c
+    lib/kissfft/kiss_fftr.c
     )
 
 
@@ -39,6 +42,7 @@ target_link_libraries(pico_roster
     hardware_clocks
     hardware_spi
     hardware_i2c
+    hardware_dma
     FreeRTOS-Kernel
     FreeRTOS-Kernel-Heap4
 )
@@ -48,6 +52,7 @@ target_include_directories(pico_roster PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/src/include
     ${CMAKE_CURRENT_LIST_DIR}/lib
     ${CMAKE_CURRENT_LIST_DIR}/lib/pico-ssd1306
+    ${CMAKE_CURRENT_LIST_DIR}/lib/kissfft
     ${CMAKE_CURRENT_LIST_DIR}/include
     ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS-Kernel/include
     ${CMAKE_CURRENT_LIST_DIR}/lib/FreeRTOS-Kernel/portable/ThirdParty/GCC/RP2040/include
