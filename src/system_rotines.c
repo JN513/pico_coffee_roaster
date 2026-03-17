@@ -33,6 +33,7 @@ void TaskDisplay_Control(void *p){
             print_info("Sistema em espera", "");
             break;
         case SYS_MENU:
+            print_menu(g_state.profile_id, g_state.profile_name, g_state.profile_duration, g_state.profile_type);
             break;
         case SYS_PREHEAT:
             update_display_info(g_state.bt, g_state.et, 5, g_state.profile_name);
@@ -127,6 +128,11 @@ void TaskUi(void *p) {
 
                 if (g_state.profile_id >= PROFILE_COUNT)
                     g_state.profile_id = PROFILE_COUNT - 1;
+
+                g_state.profile_duration = get_profile_finish_time(g_state.profile_id);
+                g_state.profile_name = get_profile_name(g_state.profile_id);
+                g_state.profile_type = get_profile_type(g_state.profile_id);
+                
             }
         }
         if (g_state.mode == SYS_MENU) {

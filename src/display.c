@@ -70,3 +70,45 @@ void print_info(char *line1, char *line2){
 
     ssd1306_show(&disp);
 }
+
+void print_menu(int profile_id, char * profile_name, int profile_duration, RoastType profile_type) {
+    ssd1306_clear(&disp);
+
+    char line1[20];
+    char line2[20];
+    char line3[20];
+    char line4[20];
+    char line5[20];
+    char line6[20];
+
+    snprintf(line1, sizeof(line1), "Perfil n: %d Nome:", profile_id);
+    snprintf(line2, sizeof(line2), "%s", profile_name);
+    snprintf(line3, sizeof(line3), "Tipo de Torra:");
+
+    switch (profile_type) {
+        case ROAST_LIGHT:
+            snprintf(line4, sizeof(line4), "Torra clara");
+            break;
+        case ROAST_MEDIUM:
+            snprintf(line4, sizeof(line4), "Torra media");
+            break;
+        case ROAST_MEDIUM_DARK:
+            snprintf(line4, sizeof(line4), "Torra media escura");
+            break;
+        case ROAST_DARK:
+            snprintf(line4, sizeof(line4), "Torra escura");
+            break;
+    }
+
+    snprintf(line5, sizeof(line5), "Tempo de torra:");
+    snprintf(line6, sizeof(line6), "%d minutos", profile_duration/60);
+
+    ssd1306_draw_string(&disp, 0, 00, 1, line1);
+    ssd1306_draw_string(&disp, 0, 10, 1, line2);
+    ssd1306_draw_string(&disp, 0, 20, 1, line3);
+    ssd1306_draw_string(&disp, 0, 30, 1, line4);
+    ssd1306_draw_string(&disp, 0, 40, 1, line5);
+    ssd1306_draw_string(&disp, 0, 50, 1, line6);
+
+    ssd1306_show(&disp);
+}

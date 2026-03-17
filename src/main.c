@@ -22,27 +22,14 @@ int main () {
 
     sleep_ms(2000);
 
-    encoderQueue = xQueueCreate(10, sizeof(uint32_t));
+    encoderQueue = xQueueCreate(ENCODER_QUEUE_SIZE, sizeof(uint32_t));
     if (!encoderQueue) panic("encoderQueue");
 
     multicore_launch_core1(core1_main);
-    xTaskCreate(TaskDisplay_Control, "display", 1024, NULL, 2, NULL);
-    xTaskCreate(TaskArtisan_uart, "artisan", 1024, NULL, 4, NULL);
-    xTaskCreate(TaskUi, "ui_control", 1024, NULL, 3, NULL);
+    xTaskCreate(TaskDisplay_Control, "display", DISPLAY_STACK_SIZE, NULL, 2, NULL);
+    xTaskCreate(TaskArtisan_uart, "artisan", ARTISAN_STACK_SIZE, NULL, 4, NULL);
+    xTaskCreate(TaskUi, "ui_control", UI_TASK_STACK_SIZE, NULL, 3, NULL);
     vTaskStartScheduler();
-
-    while (1) {
-        if (gpio_get(BTN1_PIN) == 0) {
-            //roast_loop(14); // 11
-            //set_motor_power(0);
-        }
-        if (gpio_get(BTN2_PIN) == 0) {
-            //update_display_info(g_state.bt, g_state.et, 6, "Emergencia");
-            printf("Botão de emergência pressionado!\n");
-            //emergency_shutdown();
-        }
-        sleep_ms(100);
-    }
 
     // se chegar aqui, erro
     printf("Erro: scheduler retornou\n");

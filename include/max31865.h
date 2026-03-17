@@ -14,7 +14,18 @@ typedef struct {
     float rref;
 } max31865_t;
 
-// Inicialização
+/**
+ * @brief 
+ * 
+ * @param dev 
+ * @param spi 
+ * @param sck_pin 
+ * @param mosi_pin 
+ * @param miso_pin 
+ * @param cs_pin 
+ * @param rdy_pin 
+ * @param rref_ohms 
+ */
 void max31865_init(
     max31865_t *dev,
     spi_inst_t *spi,
@@ -26,7 +37,14 @@ void max31865_init(
     float rref_ohms
 );
 
-// Leitura de temperatura em graus Celsius
+/**
+ * @brief 
+ * 
+ * @param dev 
+ * @param temperature 
+ * @return true 
+ * @return false 
+ */
 bool max31865_read_celsius(max31865_t *dev, float *temperature);
 
 #endif

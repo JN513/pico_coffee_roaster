@@ -44,8 +44,14 @@
 
 #define COOLDOWN_MIN_TEMP     35
 
-#define KP 3.5
-#define KI 0.02
-#define KD 2.0
+#define DISPLAY_STACK_SIZE    1024
+#define ARTISAN_STACK_SIZE    1024
+#define UI_TASK_STACK_SIZE    1-24 
+
+#define ENCODER_QUEUE_SIZE    10
+
+#define KP                    3.5
+#define KI                    0.02
+#define KD                    2.0
 
 #endif // !__CONFIG_H__

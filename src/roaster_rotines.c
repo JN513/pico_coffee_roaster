@@ -88,8 +88,9 @@ void roast_loop(int profile_id){
     ProfilePoint * profile_array = get_profile_pointer(profile_id);
     int profile_size = get_profile_size(profile_id);
 
-    int segundos;
-    int finish_time = get_profile_finish_time(profile_id);
+    //int segundos;
+    //int finish_time = get_profile_finish_time(profile_id);
+    int finish_time = g_state.profile_duration;
 
     int use_variable_fan = get_profile_use_variable_fan(profile_id);
 
@@ -107,9 +108,9 @@ void roast_loop(int profile_id){
         if (millis() - last > CONTROL_INTERVAL_MS)
         {
             last = millis();
-            segundos = millis() / 1000 - initial_segundos;
+            g_state.seconds = millis() / 1000 - initial_segundos;
 
-            target = get_bt_target(segundos, profile_array, profile_size);
+            target = get_bt_target(g_state.seconds , profile_array, profile_size);
 
             max31865_read_celsius(&sensor, &g_state.bt);
             g_state.et = read_tempA();
@@ -117,7 +118,7 @@ void roast_loop(int profile_id){
 
 
             //printf("Temp: %.2f °C, Target: %d °C ", g_state.bt, target);
-            int current_stage = get_current_stage(segundos, profile_array, profile_size);
+            int current_stage = get_current_stage(g_state.seconds , profile_array, profile_size);
             //print_stage(current_stage);
 
             int power = motor_speed_by_phase(current_stage);
@@ -127,12 +128,12 @@ void roast_loop(int profile_id){
                 break;
             }
 
-            if (segundos >= finish_time) {
+            if (g_state.seconds  >= finish_time) {
                 //printf("Perfil de torra concluído!\n");
                 break;
             }
 
-            if (segundos >= 960){
+            if (g_state.seconds  >= 960){
                 //printf("Aquecimento concluído! Iniciando cooldown...\n");
                 break;
             }

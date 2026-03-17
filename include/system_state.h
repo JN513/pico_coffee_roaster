@@ -2,6 +2,7 @@
 #define SYSTEM_STATE_H
 
 #include <stdbool.h>
+#include "profiles.h"
 
 typedef enum {
     SYS_START,
@@ -28,9 +29,13 @@ typedef struct {
 
     int roast_stage;
 
+    int profile_duration;
+
     char * profile_name;
 
     system_mode_t mode;
+
+    RoastType profile_type;
 
 } system_state_t;
 
