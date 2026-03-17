@@ -39,7 +39,7 @@ void encoder_isr(uint gpio, uint32_t events)
 
     uint8_t index = (prev_state << 2) | curr;
 
-    int8_t movement = quad_table[index];
+    int movement = quad_table[index];
 
     prev_state = curr;
 

@@ -115,8 +115,16 @@ void TaskUi(void *p) {
 
     encoder_init();
 
+    g_state.profile_duration = get_profile_finish_time(g_state.profile_id);
+    g_state.profile_name = get_profile_name(g_state.profile_id);
+    g_state.profile_type = get_profile_type(g_state.profile_id);
+
     while (1)
     {
+        if(g_state.mode == SYS_IDLE){
+            vTaskDelay(1000);
+            g_state.mode = SYS_MENU;
+        }
         if (xQueueReceive(
                 encoderQueue,
                 &move,
@@ -143,7 +151,7 @@ void TaskUi(void *p) {
             if (gpio_get(BTN2_PIN) == 0) {
 
             }
-            if(gpio_get(ENCODER_BTN_PIN)) {
+            if(gpio_get(ENCODER_BTN_PIN) == 0) {
                 g_state.mode = SYS_PREHEAT;
             }
         }
@@ -155,7 +163,7 @@ void TaskUi(void *p) {
                 printf("Botão de emergência pressionado!\n");
                 emergency_shutdown();
             }
-            if(gpio_get(ENCODER_BTN_PIN)) {
+            if(gpio_get(ENCODER_BTN_PIN) == 0) {
                 
             }
         }

@@ -22,7 +22,7 @@ int main () {
 
     sleep_ms(2000);
 
-    encoderQueue = xQueueCreate(ENCODER_QUEUE_SIZE, sizeof(uint32_t));
+    encoderQueue = xQueueCreate(ENCODER_QUEUE_SIZE, sizeof(int));
     if (!encoderQueue) panic("encoderQueue");
 
     multicore_launch_core1(core1_main);
