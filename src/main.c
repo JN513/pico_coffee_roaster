@@ -26,9 +26,9 @@ int main () {
     if (!encoderQueue) panic("encoderQueue");
 
     multicore_launch_core1(core1_main);
-    xTaskCreate(TaskDisplay_Control, "display", DISPLAY_STACK_SIZE, NULL, 2, NULL);
-    xTaskCreate(TaskArtisan_uart, "artisan", ARTISAN_STACK_SIZE, NULL, 4, NULL);
-    xTaskCreate(TaskUi, "ui_control", UI_TASK_STACK_SIZE, NULL, 3, NULL);
+    xTaskCreate(TaskDisplay_Control, "display", DISPLAY_STACK_SIZE, NULL, DISPLAY_TASK_PRIORITY, NULL);
+    xTaskCreate(TaskArtisan_uart, "artisan", ARTISAN_STACK_SIZE, NULL, ARTISAN_TASK_PRIORITY, NULL);
+    xTaskCreate(TaskUi, "ui_control", UI_TASK_STACK_SIZE, NULL, UI_TASK_PRIORITY, NULL);
     vTaskStartScheduler();
 
     // se chegar aqui, erro

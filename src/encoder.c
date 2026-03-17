@@ -9,11 +9,8 @@
 
 extern QueueHandle_t encoderQueue;
 
-#define ENC_A ENCODER_DT_PIN
-#define ENC_B ENCODER_CLK_PIN
-
-static const uint32_t debounce_us = 10000;
-static uint32_t last_time = 0;
+static const uint32_t debounce_us = ENCODER_DEBOUNCE_TIME;
+uint32_t last_time = 0;
 
 static const uint8_t quad_table[16] = {
     0, +1, -1, 0,
@@ -35,8 +32,8 @@ void encoder_isr(uint gpio, uint32_t events)
 
     last_time = now;
 
-    uint8_t a = gpio_get(ENC_A);
-    uint8_t b = gpio_get(ENC_B);
+    uint8_t a = gpio_get(ENCODER_DT_PIN);
+    uint8_t b = gpio_get(ENCODER_CLK_PIN);
 
     uint8_t curr = (b << 1) | a;
 
@@ -54,31 +51,30 @@ void encoder_isr(uint gpio, uint32_t events)
 
 }
 
-
 void encoder_init() {
 
-    gpio_init(ENC_A);
-    gpio_set_dir(ENC_A, GPIO_IN);
-    gpio_pull_up(ENC_A);
+    gpio_init(ENCODER_DT_PIN);
+    gpio_set_dir(ENCODER_DT_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_DT_PIN);
 
-    gpio_init(ENC_B);
-    gpio_set_dir(ENC_B, GPIO_IN);
-    gpio_pull_up(ENC_B);
+    gpio_init(ENCODER_CLK_PIN);
+    gpio_set_dir(ENCODER_CLK_PIN, GPIO_IN);
+    gpio_pull_up(ENCODER_CLK_PIN);
 
     gpio_init(ENCODER_BTN_PIN);
     gpio_set_dir(ENCODER_BTN_PIN, GPIO_IN);
 
-    prev_state = (gpio_get(ENC_B) << 1) | gpio_get(ENC_A);
+    prev_state = (gpio_get(ENCODER_CLK_PIN) << 1) | gpio_get(ENCODER_DT_PIN);
 
     gpio_set_irq_enabled_with_callback(
-        ENC_A,
+        ENCODER_DT_PIN,
         GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL,
         true,
         &encoder_isr
     );
 
     gpio_set_irq_enabled(
-        ENC_B,
+        ENCODER_CLK_PIN,
         GPIO_IRQ_EDGE_RISE | GPIO_IRQ_EDGE_FALL,
         true
     );

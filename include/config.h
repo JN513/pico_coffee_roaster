@@ -46,9 +46,14 @@
 
 #define DISPLAY_STACK_SIZE    1024
 #define ARTISAN_STACK_SIZE    1024
-#define UI_TASK_STACK_SIZE    1-24 
+#define UI_TASK_STACK_SIZE    512 
+
+#define DISPLAY_TASK_PRIORITY 2
+#define ARTISAN_TASK_PRIORITY 4
+#define UI_TASK_PRIORITY      3 
 
 #define ENCODER_QUEUE_SIZE    10
+#define ENCODER_DEBOUNCE_TIME 10000
 
 #define KP                    3.5
 #define KI                    0.02
