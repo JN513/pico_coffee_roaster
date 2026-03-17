@@ -36,5 +36,12 @@ int get_current_stage(int seconds, ProfilePoint * profile_array,
  */
 void emergency_shutdown();
 
+/**
+ * @brief 
+ * 
+ * @param phase 
+ * @return int 
+ */
+int motor_speed_by_phase(int phase);
 
 #endif // !__CONTROL_H__

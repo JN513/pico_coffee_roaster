@@ -10,19 +10,25 @@ int get_profile_finish_time(int profile_id) {
 char * get_profile_name(int profile_id) {
     if(profile_id >= PROFILE_COUNT) return 0;
 
-    return profiles[profile_id].name;
+    return (char *)profiles[profile_id].name;
 }
 
 ProfilePoint * get_profile_pointer(int profile_id) {
     if(profile_id >= PROFILE_COUNT) return 0;
 
-    return profiles[profile_id].points;
+    return (ProfilePoint *)profiles[profile_id].points;
 }
 
 int get_profile_size(int profile_id) {
     if(profile_id >= PROFILE_COUNT) return 0;
 
     return profiles[profile_id].size;
+}
+
+int get_profile_use_variable_fan(int profile_id){
+    if(profile_id >= PROFILE_COUNT) return 0;
+
+    return profiles[profile_id].use_variable_fan;
 }
 
 RoastType get_profile_type(int profile_id) {

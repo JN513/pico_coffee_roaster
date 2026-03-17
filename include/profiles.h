@@ -18,6 +18,7 @@ typedef struct {
     const ProfilePoint *points;
     int size;
     int total_time;
+    int use_variable_fan;
     RoastType type;
 } RoastProfile;
 
@@ -55,7 +56,7 @@ static const ProfilePoint profile_light_long_slow_start[] = {
 // MEDIUM
 // =========================
 
-static const ProfilePoint profile_medium_short[] = {
+static const ProfilePoint profile_medium_short[] = { // 4
     {0,30},{100,150},{240,185},{360,200},{450,210}
 };
 
@@ -71,7 +72,7 @@ static const ProfilePoint profile_medium_long2[] = {
     {0,30},{180,150},{420,195},{600,215},{780,222}
 };
 
-static const ProfilePoint profile_medium_balanced[] = {
+static const ProfilePoint profile_medium_balanced[] = { // 8
     {0,30},{150,150},{360,190},{540,205},{660,212}
 };
 
@@ -85,11 +86,11 @@ static const ProfilePoint profile_medium_dark1[] = {
     {0,30},{110,150},{260,188},{390,202},{510,212}
 };
 
-static const ProfilePoint profile_medium_dark2[] = {
+static const ProfilePoint profile_medium_dark2[] = { // 10
     {0,30},{150,150},{330,188},{510,205},{690,215}
 };
 
-static const ProfilePoint profile_medium_dark_long[] = {
+static const ProfilePoint profile_medium_dark_long[] = { // 11
     {0,30},{180,150},{420,200},{600,225},{780,232}
 };
 
@@ -113,8 +114,50 @@ static const ProfilePoint profile_sweet[] = {
     {0,30},{90,150},{220,182},{340,198},{430,209}
 };
 
+// =========================
+// Custom profiles
+// =========================
+
+static const ProfilePoint profile_medium_espresso_slow_start[] = {
+    {0,   30},    // Início à temperatura ambiente
+    {510, 150},  // Fim da Fase de Secagem (8.5 min): Baixo RoR inicial típico do Slow Start [cite: 126, 127]
+    {750, 196},  // Milestone de Alteração de Cor para 1º Crack (4 min): Maillard prolongada para complexidade [cite: 128, 844]
+    {870, 215},  // Torra Média (Development): 2 min após o 1º Crack para corpo e doçura [cite: 745, 850]
+    {930, 225}   // Finalização: Antes do 2º Crack (~16 min) para evitar amargor excessivo [cite: 78, 132]
+};
+
+static const ProfilePoint profile_chocolate_notes_extended_maillard[] = {
+    {0,   30},    
+    {270, 150},  // Fim da Secagem (4.5 min): Fase inicial mais rápida que o SS [cite: 188]
+    {720, 196},  // Fase Maillard Estendida (+7.5 min): Crucial para notas de chocolate 
+    {810, 212},  // Desenvolvimento Pós-1º Crack: 1.5 min para doçura de chocolate ao leite [cite: 192]
+    {840, 222}   // Finalização: Próximo ao 2º Crack para chocolate amargo e corpo denso 
+};
+
+static const ProfilePoint profile_fast_start_acidity[] = {
+    {0,   30},
+    {300, 150}, // Fase de Secagem rápida (5 min) [cite: 115]
+    {510, 196}, // Maillard rápida (3.5 min) [cite: 117]
+    {720, 210}, // Desenvolvimento (3.5 min até o 1º Crack) [cite: 119]
+    {960, 237}  // Finalização: Torra clara/média em 16 min [cite: 78, 121]
+};
+
+static const ProfilePoint profile_production_balanced[] = {
+    {0,   30},
+    {300, 150}, // Fase de Secagem estável (5 min) [cite: 151]
+    {570, 196}, // Maillard controlada (4.5 min) [cite: 153]
+    {840, 212}, // Desenvolvimento equilibrado (4.5 min) [cite: 155]
+    {960, 237}  // Finalização padrão [cite: 78, 157]
+};
 
 
+static const ProfilePoint profile_medium_sweetness[] = {
+    {0,   30},
+    {330, 150}, // Secagem intermediária (5.5 min) [cite: 138]
+    {570, 196}, // Maillard (4 min) [cite: 140]
+    {750, 212}, // Desenvolvimento focado em açúcares (3 min) [cite: 142]
+    {960, 237}  // Finalização equilibrada [cite: 144]
+};
 // =========================
 // PROFILE LIST (ordered)
 // =========================
@@ -128,6 +171,7 @@ static const RoastProfile profiles[] = {
         profile_light_fast,
         sizeof(profile_light_fast)/sizeof(ProfilePoint),
         360,
+        0,
         ROAST_LIGHT
     },
 
@@ -136,6 +180,7 @@ static const RoastProfile profiles[] = {
         profile_light_slow,
         sizeof(profile_light_slow)/sizeof(ProfilePoint),
         420,
+        0,
         ROAST_LIGHT
     },
 
@@ -144,6 +189,7 @@ static const RoastProfile profiles[] = {
         profile_light_extended_maillard,
         sizeof(profile_light_extended_maillard)/sizeof(ProfilePoint),
         840,
+        0,
         ROAST_LIGHT
     },
     {
@@ -151,6 +197,7 @@ static const RoastProfile profiles[] = {
         profile_light_long_slow_start,
         sizeof(profile_light_long_slow_start)/sizeof(ProfilePoint),
         870,
+        0,
         ROAST_LIGHT
     },
 
@@ -162,6 +209,7 @@ static const RoastProfile profiles[] = {
         profile_medium_short,
         sizeof(profile_medium_short)/sizeof(ProfilePoint),
         450,
+        0,
         ROAST_MEDIUM
     },
 
@@ -170,6 +218,7 @@ static const RoastProfile profiles[] = {
         profile_medium_short2,
         sizeof(profile_medium_short2)/sizeof(ProfilePoint),
         540,
+        0,
         ROAST_MEDIUM
     },
 
@@ -178,6 +227,7 @@ static const RoastProfile profiles[] = {
         profile_medium_long1,
         sizeof(profile_medium_long1)/sizeof(ProfilePoint),
         720,
+        0,
         ROAST_MEDIUM
     },
 
@@ -186,6 +236,7 @@ static const RoastProfile profiles[] = {
         profile_medium_long2,
         sizeof(profile_medium_long2)/sizeof(ProfilePoint),
         780,
+        0,
         ROAST_MEDIUM
     },
 
@@ -194,6 +245,7 @@ static const RoastProfile profiles[] = {
         profile_medium_balanced,
         sizeof(profile_medium_balanced)/sizeof(ProfilePoint),
         660,
+        0,
         ROAST_MEDIUM
     },
 
@@ -205,6 +257,7 @@ static const RoastProfile profiles[] = {
         profile_medium_dark1,
         sizeof(profile_medium_dark1)/sizeof(ProfilePoint),
         510,
+        0,
         ROAST_MEDIUM_DARK
     },
 
@@ -213,14 +266,16 @@ static const RoastProfile profiles[] = {
         profile_medium_dark2,
         sizeof(profile_medium_dark2)/sizeof(ProfilePoint),
         690,
+        0,
         ROAST_MEDIUM_DARK
     },
 
     {
-        "Medium Dark Long",
+        "Medium Dark Long", // 11
         profile_medium_dark_long,
         sizeof(profile_medium_dark_long)/sizeof(ProfilePoint),
         780,
+        0,
         ROAST_MEDIUM_DARK
     },
 
@@ -228,23 +283,71 @@ static const RoastProfile profiles[] = {
     // DARK
 
     {
-        "Dark",
+        "Dark", // 12
         profile_dark1,
         sizeof(profile_dark1)/sizeof(ProfilePoint),
         720,
+        0,
         ROAST_DARK
     },
 
 
     // SWEET
 
-    {
+    { // 13
         "Sweet",
         profile_sweet,
         sizeof(profile_sweet)/sizeof(ProfilePoint),
         430,
+        0,
         ROAST_MEDIUM
-    }
+    },
+
+    { // 14
+        "Medium expresso",
+        profile_medium_espresso_slow_start,
+        sizeof(profile_medium_espresso_slow_start)/sizeof(ProfilePoint),
+        930,
+        0,
+        ROAST_MEDIUM
+    },
+
+    {
+        "Chocolate Notes",
+        profile_chocolate_notes_extended_maillard,
+        sizeof(profile_chocolate_notes_extended_maillard)/sizeof(ProfilePoint),
+        840,
+        0,
+        ROAST_MEDIUM
+    },
+
+    {
+        "Fast Start fluit",
+        profile_fast_start_acidity,
+        sizeof(profile_fast_start_acidity)/sizeof(ProfilePoint),
+        960,
+        0,
+        ROAST_MEDIUM
+    },
+
+    {
+        "Balanced",
+        profile_production_balanced,
+        sizeof(profile_production_balanced)/sizeof(ProfilePoint),
+        960,
+        0,
+        ROAST_MEDIUM
+    },
+
+    {
+        "Sweetness",
+        profile_medium_sweetness,
+        sizeof(profile_medium_sweetness)/sizeof(ProfilePoint),
+        960,
+        0,
+        ROAST_MEDIUM
+    },
+
 
 };
 
@@ -281,6 +384,14 @@ ProfilePoint * get_profile_pointer(int profile_id);
  * @return int 
  */
 int get_profile_size(int profile_id);
+
+/**
+ * @brief Get the profile use variable fan object
+ * 
+ * @param profile_id 
+ * @return int 
+ */
+int get_profile_use_variable_fan(int profile_id);
 
 /**
  * @brief Get the profile type object

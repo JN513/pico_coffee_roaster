@@ -91,3 +91,16 @@ void emergency_shutdown() {
         sleep_ms(1000);
     }
 }
+
+int motor_speed_by_phase(int phase) {
+    switch (phase) {
+        case 1: return 95;
+                break;
+        case 2: return 90;
+                break;
+        case 3: return 80;
+                break;
+        default:
+            return 100;
+    }
+}

@@ -92,6 +92,8 @@ void roast_loop(int profile_id){
     int segundos;
     int finish_time = get_profile_finish_time(profile_id);
 
+    int use_variable_fan = get_profile_use_variable_fan(profile_id);
+
     set_motor_power(100);
 
     int initial_segundos = millis() / 1000;
@@ -111,7 +113,10 @@ void roast_loop(int profile_id){
 
 
             printf("Temp: %.2f °C, Target: %d °C ", temp, target);
-            print_stage(get_current_stage(segundos, profile_array, profile_size));
+            int current_stage = get_current_stage(segundos, profile_array, profile_size);
+            print_stage(current_stage);
+
+            int power = motor_speed_by_phase(current_stage);
 
             if (temp > MAX_TEMP) {
                 emergency_shutdown();
@@ -127,6 +132,9 @@ void roast_loop(int profile_id){
                 printf("Aquecimento concluído! Iniciando cooldown...\n");
                 break;
             }
+
+            if(use_variable_fan)
+                set_motor_power(power);
         }
     }
 
@@ -226,7 +234,7 @@ int main () {
 
     while (1) {
         if (gpio_get(BTN1_PIN) == 0) {
-            roast_loop(1);
+            roast_loop(14); // 11
             set_motor_power(0);
         }
         if (gpio_get(BTN2_PIN) == 0) {
