@@ -22,7 +22,6 @@ add_executable(pico_roster
     src/max31865.c
     src/display.c
     src/profiles.c
-    src/encoder.c
     src/system_state.c
     src/system_rotines.c
     src/roaster_rotines.c
