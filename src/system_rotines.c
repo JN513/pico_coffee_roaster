@@ -59,7 +59,7 @@ void TaskDisplay_Control(void *p){
 
 void command_read() {
     // Formato TC4: Ambiência, Temp1, Temp2, Saída1, Saída2
-    printf("0.00,%.2f,%.2f,0.00,0.00\n", g_state.et, g_state.bt);
+    printf("0.00,%.2f,%.2f,0.00,%d\n", g_state.et, g_state.bt, g_state.target);
 }
 
 void handle_serial_command() {

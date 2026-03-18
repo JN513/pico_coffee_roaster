@@ -28,7 +28,7 @@ uint32_t millis()
 void pre_heat(){
     //printf("Iniciando pré-aquecimento\n");
     uint32_t last = 0;
-
+    g_state.target = PRE_HEAT_TEMP;
     while (1)
     {
         if (millis() - last > CONTROL_INTERVAL_MS)
@@ -78,8 +78,6 @@ void roast_loop(int profile_id){
     //update_display_info(g_state.bt, g_state.et, 0, profile_name);
     sleep_ms(2000);
 
-    int target = 150;
-
     uint32_t last = 0;
 
 
@@ -112,11 +110,11 @@ void roast_loop(int profile_id){
             last = millis();
             g_state.seconds = millis() / 1000 - initial_segundos;
 
-            target = get_bt_target(g_state.seconds , profile_array, profile_size);
+            g_state.target = get_bt_target(g_state.seconds , profile_array, profile_size);
 
             max31865_read_celsius(&sensor, &g_state.bt);
             g_state.et = read_tempA();
-            control_temperature(target, g_state.bt);
+            control_temperature(g_state.target, g_state.bt);
 
 
             //printf("Temp: %.2f °C, Target: %d °C ", g_state.bt, target);
