@@ -158,6 +158,14 @@ static const ProfilePoint profile_medium_sweetness[] = {
     {750, 212}, // Desenvolvimento focado em açúcares (3 min) [cite: 142]
     {960, 237}  // Finalização equilibrada [cite: 144]
 };
+
+static const ProfilePoint profile_medium_espresso_adjusted[] = {
+    {0,   30},
+    {300, 150}, // 300s (5 min): Secagem mais rápida [cite: 115]
+    {540, 196}, // Primeiro Crack ocorre aos 9 min (300s + 240s) [cite: 118]
+    {720, 215}, // Dá mais 3 min de desenvolvimento para o Espresso
+    {840, 225}  // Finalização total em 14 min
+};
 // =========================
 // PROFILE LIST (ordered)
 // =========================
