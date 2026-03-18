@@ -125,3 +125,8 @@ _pycache_/
 # ==========================
 *.log
 *.tmp
+
+venv/
+env/
+*pyc
+site

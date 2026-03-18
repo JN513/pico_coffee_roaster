@@ -1,0 +1,66 @@
+site_name: Pico Coffee Roaster
+site_author: Julio Nunes Avelar
+site_description: Raspbery Pi Pico coffe roaster Firmware.
+repo_name: pico_coffee_roaster
+repo_url: https://github.com/JN513/pico_coffee_roaster
+site_url: https://jn513.github.io/pico_coffee_roaster/
+copyright: CC BY-SA 4.0 - Julio Nunes Avelar
+nav:
+  - Home: index.md
+  - Get Started: get_started.md
+  - How to integrate: how_to_integrate.md
+  - About: about.md
+  - Contributing: contributing.md
+theme:
+  name: material
+  #language: pt-BR
+  logo: imgs/logo.jpeg
+  favicon: imgs/logo.jpeg
+  highlightjs: true
+  features:
+      - toc.integrate
+      - navigation.tabs
+      - navigation.expand
+      #- navigation.instant
+      #- navigation.instant.progress
+      - content.code.copy
+      - content.code.select
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+plugins:
+  #- pdf-export
+  #- offline
+  - search:
+      lang:
+        - en
+        - pt
+  - i18n:
+      languages:
+        - locale: pt
+          name: Português
+          default: true
+        - locale: en
+          name: English
+extra:
+  social:
+    - icon: fontawesome/brands/gitlab 
+      link: https://gitlab.com/jn513
+    - icon: fontawesome/brands/github 
+      link: https://github.com/JN513/pico_coffee_roaster
+
+markdown_extensions:
+  - attr_list
+  - md_in_html
