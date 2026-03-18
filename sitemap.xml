@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/about/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/about/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/about/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/contributing/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/contributing/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/contributing/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/get_started/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/get_started/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/get_started/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/how_to_integrate/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/how_to_integrate/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/how_to_integrate/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/en/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/en/about/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/about/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/about/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/en/contributing/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/contributing/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/contributing/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/en/get_started/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/get_started/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/get_started/"/>
+    </url>
+    <url>
+        <loc>https://jn513.github.io/pico_coffee_roaster/en/how_to_integrate/</loc>
+        <lastmod>2026-03-18</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://jn513.github.io/pico_coffee_roaster/en/how_to_integrate/"/>
+        <xhtml:link rel="alternate" hreflang="pt" href="https://jn513.github.io/pico_coffee_roaster/how_to_integrate/"/>
+    </url>
+</urlset>
