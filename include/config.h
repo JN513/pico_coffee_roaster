@@ -55,9 +55,9 @@
 #define ENCODER_QUEUE_SIZE    10
 #define ENCODER_DEBOUNCE_TIME 10000
 
-#define KP                    3.5
-#define KI                    0.02
-#define KD                    2.0
+#define KP                    2.0 // 3.5
+#define KI                    0.005 // 0.02
+#define KD                    1.0 // 2.0
 
 #define FFT_SIZE              256
 #define MICROPHONE_PIN        28

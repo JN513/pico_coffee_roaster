@@ -16,7 +16,7 @@ void init_display();
  * @param stage 
  * @param profile_name 
  */
-void update_display_info(float tempA, float tempB, int stage, char * profile_name);
+void update_display_info(float tempA, float tempB, int stage, char * profile_name, int profile_id);
 
 /**
  * @brief 

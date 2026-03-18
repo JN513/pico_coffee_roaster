@@ -38,4 +38,4 @@ Se deseja contribuir com o projeto, sinta-se à vontade para fazê-lo. O arquivo
 
 ## Licença
 
-Este projeto é licenciado sob a licença MIT]([https://github.com/JN513/pico_coffee_roaster/blob/main/LICENSE](https://github.com/JN513/pico_coffee_roaster/blob/main/LICENSE)), que concede total liberdade para uso.
+Este projeto é licenciado sob a licença [MIT]([https://github.com/JN513/pico_coffee_roaster/blob/main/LICENSE](https://github.com/JN513/pico_coffee_roaster/blob/main/LICENSE)), que concede total liberdade para uso.

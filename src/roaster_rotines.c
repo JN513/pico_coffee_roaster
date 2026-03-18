@@ -94,6 +94,8 @@ void roast_loop(int profile_id){
 
     int use_variable_fan = get_profile_use_variable_fan(profile_id);
 
+    g_state.mode = SYS_ROAST;
+
     set_motor_power(100);
 
     int initial_segundos = millis() / 1000;
@@ -118,10 +120,11 @@ void roast_loop(int profile_id){
 
 
             //printf("Temp: %.2f °C, Target: %d °C ", g_state.bt, target);
-            int current_stage = get_current_stage(g_state.seconds , profile_array, profile_size);
-            //print_stage(current_stage);
+            
+            g_state.roast_stage = get_current_stage(g_state.seconds , profile_array, profile_size);
+            //print_stage(g_state.roast_stage);
 
-            int power = motor_speed_by_phase(current_stage);
+            int power = motor_speed_by_phase(g_state.roast_stage);
 
             if (g_state.bt > MAX_TEMP) {
                 emergency_shutdown();

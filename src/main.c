@@ -16,6 +16,7 @@ extern void core1_main();
 extern void TaskDisplay_Control(void *p);
 extern void TaskArtisan_uart(void *p);
 extern void TaskUi(void *p);
+extern void TaskEncoder(void *p);
 
 int main () {
     stdio_init_all();
@@ -26,6 +27,7 @@ int main () {
     if (!encoderQueue) panic("encoderQueue");
 
     multicore_launch_core1(core1_main);
+    xTaskCreate(TaskEncoder, "encoder", UI_TASK_STACK_SIZE, NULL, UI_TASK_PRIORITY, NULL);
     xTaskCreate(TaskDisplay_Control, "display", DISPLAY_STACK_SIZE, NULL, DISPLAY_TASK_PRIORITY, NULL);
     xTaskCreate(TaskArtisan_uart, "artisan", ARTISAN_STACK_SIZE, NULL, ARTISAN_TASK_PRIORITY, NULL);
     xTaskCreate(TaskUi, "ui_control", UI_TASK_STACK_SIZE, NULL, UI_TASK_PRIORITY, NULL);

@@ -25,7 +25,7 @@ void init_display() {
 }
 
 
-void update_display_info(float tempA, float tempB, int stage, char * profile_name) {
+void update_display_info(float tempA, float tempB, int stage, char * profile_name, int profile_id) {
     ssd1306_clear(&disp);
 
     char line1[20];
@@ -36,7 +36,7 @@ void update_display_info(float tempA, float tempB, int stage, char * profile_nam
     char line6[20];
 
     snprintf(line1, sizeof(line1), "Realizando torra ");
-    snprintf(line2, sizeof(line2), "com perfil:");
+    snprintf(line2, sizeof(line2), "com perfil n: %d", profile_id);
     snprintf(line3, sizeof(line3), "%s", profile_name);
     snprintf(line4, sizeof(line4), "Temp Massa: %.2f C", tempA);
     snprintf(line5, sizeof(line5), "Temp Ar: %.2f C", tempB);

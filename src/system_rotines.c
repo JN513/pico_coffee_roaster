@@ -37,18 +37,18 @@ void TaskDisplay_Control(void *p){
             print_menu(g_state.profile_id, g_state.profile_name, g_state.profile_duration, g_state.profile_type);
             break;
         case SYS_PREHEAT:
-            update_display_info(g_state.bt, g_state.et, 5, g_state.profile_name);
+            update_display_info(g_state.bt, g_state.et, 5, g_state.profile_name, g_state.profile_id);
             break;
         case SYS_ROAST:
-            update_display_info(g_state.bt, g_state.et, g_state.roast_stage, g_state.profile_name);  
+            update_display_info(g_state.bt, g_state.et, g_state.roast_stage, g_state.profile_name, g_state.profile_id);  
             break;
         case SYS_COOLDOWN:
-            update_display_info(g_state.bt, g_state.et, 4, g_state.profile_name);
+            update_display_info(g_state.bt, g_state.et, 4, g_state.profile_name, g_state.profile_id);
             break;
         case SYS_EMERGENCY:
             print_info("Emergencia!!!", "Parando tarefas");
             break;
-        default: update_display_info(g_state.bt, g_state.et, g_state.roast_stage, g_state.profile_name);
+        default: update_display_info(g_state.bt, g_state.et, g_state.roast_stage, g_state.profile_name, g_state.profile_id);
             break;
         }
 
@@ -58,7 +58,7 @@ void TaskDisplay_Control(void *p){
 
 void command_read() {
     // Formato TC4: Ambiência, Temp1, Temp2, Saída1, Saída2
-    printf("0.00,%.2f,%.2f,0.00,0.00\n", g_state.bt, g_state.et);
+    printf("0.00,%.2f,%.2f,0.00,0.00\n", g_state.et, g_state.bt);
 }
 
 void handle_serial_command() {
@@ -168,7 +168,7 @@ void TaskUi(void *p) {
             }
         }
 
-        vTaskDelay(100);
+        vTaskDelay(10);
     }
 }
 
