@@ -130,3 +130,10 @@ venv/
 env/
 *pyc
 site
+*-backups
+gerbers
+fp-info-cache
+*lck
+*.zip
+report.txt
+
