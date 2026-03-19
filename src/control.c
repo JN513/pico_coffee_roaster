@@ -100,7 +100,7 @@ int motor_speed_by_phase(int phase) {
                 break;
         case 2: return 90;
                 break;
-        case 3: return 80;
+        case 3: return 85;
                 break;
         default:
             return 100;

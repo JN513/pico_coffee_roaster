@@ -159,13 +159,19 @@ static const ProfilePoint profile_medium_sweetness[] = {
     {960, 237}  // Finalização equilibrada [cite: 144]
 };
 
-static const ProfilePoint profile_medium_espresso_adjusted[] = {
+static const ProfilePoint profile_medium_espresso_2[] = {
     {0,   30},
     {300, 150}, // 300s (5 min): Secagem mais rápida [cite: 115]
     {540, 196}, // Primeiro Crack ocorre aos 9 min (300s + 240s) [cite: 118]
     {720, 215}, // Dá mais 3 min de desenvolvimento para o Espresso
     {840, 225}  // Finalização total em 14 min
 };
+
+static const ProfilePoint profile_medium_short_long[] = {
+    {0,30},{180,150},{360,195},{550,207},{710,217}
+};
+
+
 // =========================
 // PROFILE LIST (ordered)
 // =========================
@@ -357,6 +363,50 @@ static const RoastProfile profiles[] = {
     },
 
 
+    {
+        "Expresso 2",
+        profile_medium_espresso_2,
+        sizeof(profile_medium_espresso_2)/sizeof(ProfilePoint),
+        840,
+        0,
+        ROAST_MEDIUM
+    },
+
+    {
+        "Medium Short Long",
+        profile_medium_short_long,
+        sizeof(profile_medium_short_long)/sizeof(ProfilePoint),
+        710,
+        0,
+        ROAST_MEDIUM
+    },
+
+    {
+        "Medium Long 2 airflow",
+        profile_medium_long2,
+        sizeof(profile_medium_long2)/sizeof(ProfilePoint),
+        780,
+        1,
+        ROAST_MEDIUM
+    },
+
+    {
+        "Medium Balanced airflow",
+        profile_medium_balanced,
+        sizeof(profile_medium_balanced)/sizeof(ProfilePoint),
+        660,
+        1,
+        ROAST_MEDIUM
+    },
+
+    {
+        "Medium Short Long airflow",
+        profile_medium_short_long,
+        sizeof(profile_medium_short_long)/sizeof(ProfilePoint),
+        710,
+        1,
+        ROAST_MEDIUM
+    },
 };
 
 #define PROFILE_COUNT (sizeof(profiles)/sizeof(RoastProfile))
