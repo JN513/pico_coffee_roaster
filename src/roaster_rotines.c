@@ -203,6 +203,9 @@ void core1_main(){
             }
         }
 
+        max31865_read_celsius(&sensor, &g_state.bt);
+        g_state.et = read_tempA();
+
         sleep_ms(200);
     }
 }

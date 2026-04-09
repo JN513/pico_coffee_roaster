@@ -10,7 +10,8 @@ typedef enum {
     ROAST_LIGHT,
     ROAST_MEDIUM,
     ROAST_MEDIUM_DARK,
-    ROAST_DARK
+    ROAST_DARK,
+    ROAST_MAGIC
 } RoastType;
 
 typedef struct {
@@ -171,6 +172,16 @@ static const ProfilePoint profile_medium_short_long[] = {
     {0,30},{180,150},{360,195},{550,207},{710,217}
 };
 
+// amendoim
+
+static const ProfilePoint profile_magic_roast[] = {
+    {0, 60},    // Charge: Estabilização inicial pós-carga
+    {80, 80},   // Turning Point: Retomada da subida de temperatura
+    {360, 115}, // Dry End: Fim da secagem, início da mudança de cor
+    {550, 135}, // Maillard: Desenvolvimento de açúcares e aminoácidos
+    {710, 155}, // Final Development: Início da expansão e aroma intenso
+    {820, 168}  // Drop: Ponto de retirada para resfriamento imediato
+};
 
 // =========================
 // PROFILE LIST (ordered)
@@ -407,6 +418,17 @@ static const RoastProfile profiles[] = {
         1,
         ROAST_MEDIUM
     },
+
+    // amendoim
+
+    {
+        "Magic Roast",
+        profile_magic_roast,
+        sizeof(profile_magic_roast)/sizeof(ProfilePoint),
+        820,
+        0,
+        ROAST_MAGIC
+    }
 };
 
 #define PROFILE_COUNT (sizeof(profiles)/sizeof(RoastProfile))

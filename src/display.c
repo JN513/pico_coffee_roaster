@@ -98,6 +98,9 @@ void print_menu(int profile_id, char * profile_name, int profile_duration, Roast
         case ROAST_DARK:
             snprintf(line4, sizeof(line4), "Torra escura");
             break;
+        case ROAST_MAGIC:
+            snprintf(line4, sizeof(line4), "Torra magica");
+            break;
     }
 
     snprintf(line5, sizeof(line5), "Tempo de torra:");
