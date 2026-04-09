@@ -25,12 +25,12 @@
 #define RELEY_PIN             20 // 18
 #define FAN_PIN               18
 
-#define BTN1_PIN              3
+#define BTN1_PIN              5 // 3
 #define BTN2_PIN              6
 
-#define ENCODER_BTN_PIN       2
-#define ENCODER_DT_PIN        4
-#define ENCODER_CLK_PIN       5
+#define ENCODER_BTN_PIN       2 // 2
+#define ENCODER_DT_PIN        3 // 4
+#define ENCODER_CLK_PIN       4 // 5
 
 #define OLED_SDA_PIN          0
 #define OLED_SCL_PIN          1

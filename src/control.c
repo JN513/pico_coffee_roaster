@@ -86,6 +86,7 @@ int get_current_stage(int seconds, ProfilePoint * profile_array,
 
 void emergency_shutdown() {
     g_state.mode = SYS_EMERGENCY;
+    g_state.stop_flag = 1;
     set_resistance_power(0);
     set_motor_power(100);
     //printf("EMERGENCY SHUTDOWN ACTIVATED!\n");

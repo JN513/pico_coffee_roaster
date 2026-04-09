@@ -124,27 +124,7 @@ void TaskUi(void *p) {
         if(g_state.mode == SYS_IDLE){
             vTaskDelay(1000);
             g_state.mode = SYS_MENU;
-        }
-        if (xQueueReceive(
-                encoderQueue,
-                &move,
-                0))
-        {
-            if (g_state.mode == SYS_MENU) {
-                g_state.profile_id += move;
-                if (g_state.profile_id < 0)
-                    g_state.profile_id = 0;
-
-                if (g_state.profile_id >= PROFILE_COUNT)
-                    g_state.profile_id = PROFILE_COUNT - 1;
-
-                g_state.profile_duration = get_profile_finish_time(g_state.profile_id);
-                g_state.profile_name = get_profile_name(g_state.profile_id);
-                g_state.profile_type = get_profile_type(g_state.profile_id);
-                
-            }
-        }
-        if (g_state.mode == SYS_MENU) {
+        } else if (g_state.mode == SYS_MENU) {
             if (gpio_get(BTN1_PIN) == 0) {
 
             }
@@ -152,12 +132,29 @@ void TaskUi(void *p) {
 
             }
             if(gpio_get(ENCODER_BTN_PIN) == 0) {
+                printf("Botão pressionado\n");
                 g_state.mode = SYS_PREHEAT;
             }
-        }
-        if (g_state.mode == SYS_PREHEAT || g_state.mode == SYS_ROAST) {
+
+            if (xQueueReceive(encoderQueue, &move, 0)){
+                if (g_state.mode == SYS_MENU) {
+                    g_state.profile_id += move;
+                    if (g_state.profile_id < 0)
+                        g_state.profile_id = 0;
+
+                    if (g_state.profile_id >= PROFILE_COUNT)
+                        g_state.profile_id = PROFILE_COUNT - 1;
+
+                    g_state.profile_duration = get_profile_finish_time(g_state.profile_id);
+                    g_state.profile_name = get_profile_name(g_state.profile_id);
+                    g_state.profile_type = get_profile_type(g_state.profile_id);
+                }
+            }
+        } else if (g_state.mode == SYS_PREHEAT || g_state.mode == SYS_ROAST) {
             if (gpio_get(BTN1_PIN) == 0) {
                 g_state.stop_flag = 1;
+                vTaskDelay(50);
+                //printf("Botão de parada pressionado\n");
             }
             if (gpio_get(BTN2_PIN) == 0) {
                 printf("Botão de emergência pressionado!\n");

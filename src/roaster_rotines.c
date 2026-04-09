@@ -29,13 +29,10 @@ void pre_heat(){
     //printf("Iniciando pré-aquecimento\n");
     uint32_t last = 0;
     g_state.target = PRE_HEAT_TEMP;
-    while (1)
-    {
-        if (millis() - last > CONTROL_INTERVAL_MS)
-        {
-            if(g_state.stop_flag || g_state.mode == SYS_EMERGENCY){
-                return;
-            }
+    while (1) {
+        if(g_state.stop_flag || g_state.mode == SYS_EMERGENCY){
+            return;
+        } else if (millis() - last > CONTROL_INTERVAL_MS) {
             last = millis();
 
             max31865_read_celsius(&sensor, &g_state.bt);
@@ -75,6 +72,11 @@ void roast_loop(int profile_id){
     set_motor_power(100);
     //update_display_info(g_state.bt, g_state.et, 5, profile_name); // temp grao, temp ar, stage id, profile name
     pre_heat();
+
+    if(g_state.stop_flag || g_state.mode == SYS_EMERGENCY){
+        return;
+    }
+
     //update_display_info(g_state.bt, g_state.et, 0, profile_name);
     sleep_ms(2000);
 
@@ -101,12 +103,10 @@ void roast_loop(int profile_id){
     while (1)
     {
         if(g_state.mode == SYS_EMERGENCY) return;
-        if(g_state.stop_flag){
+        else if(g_state.stop_flag){
             g_state.stop_flag = 0;
             break;
-        }
-        if (millis() - last > CONTROL_INTERVAL_MS)
-        {
+        } else if (millis() - last > CONTROL_INTERVAL_MS) {
             last = millis();
             g_state.seconds = millis() / 1000 - initial_segundos;
 
@@ -198,6 +198,7 @@ void core1_main(){
             roast_loop(g_state.profile_id);
             if(g_state.mode != SYS_EMERGENCY) {
                 g_state.mode = SYS_IDLE;
+                g_state.stop_flag = 0;
                 set_motor_power(0);
             }
         }
